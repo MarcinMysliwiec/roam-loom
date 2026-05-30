@@ -43,6 +43,8 @@ model User {
     members            Member[]
     twofactors         TwoFactor[]
     aiChats            AiChat[]
+    bookings           Booking[]
+    reviews            Review[]
 
     @@unique([email])
     @@unique([username])
@@ -140,6 +142,7 @@ model Organization {
     invitations        Invitation[]
     purchases          Purchase[]
     aiChats            AiChat[]
+    properties         Property[]
 
     @@unique([slug])
     @@map("organization")
@@ -208,4 +211,71 @@ model AiChat {
     updatedAt      DateTime      @updatedAt
 
     @@map("ai_chat")
+}
+
+model Property {
+    id             String       @id @default(cuid())
+    name           String
+    description    String?
+    address        String
+    images         Json         @default("[]") /// @zod.custom.use(z.array(z.string()))
+    basePrice      Decimal
+    organizationId String
+    organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+    bookings       Booking[]
+    reviews        Review[]
+    availability   Availability[]
+    createdAt      DateTime     @default(now())
+    updatedAt      DateTime     @updatedAt
+
+    @@map("property")
+}
+
+enum BookingStatus {
+    PENDING
+    CONFIRMED
+    CANCELLED
+}
+
+model Booking {
+    id         String        @id @default(cuid())
+    propertyId String
+    property   Property      @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+    userId     String
+    user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    checkIn    DateTime
+    checkOut   DateTime
+    status     BookingStatus @default(PENDING)
+    totalPrice Decimal
+    createdAt  DateTime      @default(now())
+    updatedAt  DateTime      @updatedAt
+
+    @@map("booking")
+}
+
+model Review {
+    id         String   @id @default(cuid())
+    propertyId String
+    property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+    userId     String
+    user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    rating     Int
+    comment    String?
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    @@map("review")
+}
+
+model Availability {
+    id         String   @id @default(cuid())
+    propertyId String
+    property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+    date       DateTime @db.Date
+    isBlocked  Boolean  @default(true)
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    @@unique([propertyId, date])
+    @@map("availability")
 }
