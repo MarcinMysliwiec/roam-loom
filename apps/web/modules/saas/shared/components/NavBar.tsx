@@ -16,6 +16,7 @@ import {
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { getAccountSettingsPath } from "@saas/shared/lib/links";
 import { OrganzationSelect } from "../../organizations/components/OrganizationSelect";
 
 export function NavBar() {
@@ -57,9 +58,13 @@ export function NavBar() {
 			: []),
 		{
 			label: t("app.menu.accountSettings"),
-			href: "/app/settings",
+			href: getAccountSettingsPath(activeOrganization?.slug),
 			icon: UserCog2Icon,
-			isActive: pathname.startsWith("/app/settings/"),
+			isActive: activeOrganization
+				? pathname.startsWith(
+						`/app/${activeOrganization.slug}/account/settings/`,
+					)
+				: pathname.startsWith("/app/settings/"),
 		},
 		...(user?.role === "admin"
 			? [

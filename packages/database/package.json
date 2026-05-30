@@ -1,11 +1,11 @@
 {
 	"dependencies": {
 		"@paralleldrive/cuid2": "^2.2.2",
-		"@prisma/client": "^6.9.0",
+		"@prisma/client": "^6.19.3",
 		"@repo/config": "workspace:*",
-		"drizzle-orm": "^0.44.2",
-		"drizzle-zod": "^0.8.2",
-		"pg": "^8.16.0",
+		"drizzle-orm": "^0.44.7",
+		"drizzle-zod": "0.8.2",
+		"pg": "^8.21.0",
 		"zod": "^3.25.55"
 	},
 	"devDependencies": {
@@ -13,8 +13,8 @@
 		"@repo/tsconfig": "workspace:*",
 		"@types/node": "22.15.30",
 		"dotenv-cli": "^8.0.0",
-		"drizzle-kit": "^0.31.1",
-		"prisma": "^6.9.0",
+		"drizzle-kit": "^0.31.10",
+		"prisma": "^6.19.3",
 		"prisma-json-types-generator": "^3.4.2",
 		"zod-prisma-types": "^3.2.4"
 	},

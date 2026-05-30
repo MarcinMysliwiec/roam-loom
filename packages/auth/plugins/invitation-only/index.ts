@@ -1,8 +1,7 @@
 import { config } from "@repo/config";
 import { getPendingInvitationByEmail } from "@repo/database";
 import type { BetterAuthPlugin } from "better-auth";
-import { APIError } from "better-auth/api";
-import { createAuthMiddleware } from "better-auth/plugins";
+import { APIError, createAuthMiddleware } from "better-auth/api";
 
 export const invitationOnlyPlugin = () =>
 	({
@@ -34,6 +33,9 @@ export const invitationOnlyPlugin = () =>
 			],
 		},
 		$ERROR_CODES: {
-			INVALID_INVITATION: "No invitation found for this email",
+			INVALID_INVITATION: {
+				code: "INVALID_INVITATION" as const,
+				message: "No invitation found for this email",
+			},
 		},
 	}) satisfies BetterAuthPlugin;

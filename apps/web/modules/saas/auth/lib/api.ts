@@ -42,19 +42,3 @@ export const useUserAccountsQuery = () => {
 		},
 	});
 };
-
-export const userPasskeyQueryKey = ["user", "passkeys"] as const;
-export const useUserPasskeysQuery = () => {
-	return useQuery({
-		queryKey: userPasskeyQueryKey,
-		queryFn: async () => {
-			const { data, error } = await authClient.passkey.listUserPasskeys();
-
-			if (error) {
-				throw error;
-			}
-
-			return data;
-		},
-	});
-};

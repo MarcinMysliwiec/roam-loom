@@ -61,10 +61,9 @@ export function ActiveOrganizationProvider({
 			return;
 		}
 
-		await queryClient.setQueryData(
-			activeOrganizationQueryKey(newActiveOrganization.slug),
-			newActiveOrganization,
-		);
+		await queryClient.invalidateQueries({
+			queryKey: activeOrganizationQueryKey(newActiveOrganization.slug),
+		});
 
 		if (config.organizations.enableBilling) {
 			await queryClient.prefetchQuery({
@@ -106,7 +105,7 @@ export function ActiveOrganizationProvider({
 		}
 	}, [activeOrganization]);
 
-	const activeOrganizationUserRole = activeOrganization?.members.find(
+	const activeOrganizationUserRole = activeOrganization?.members?.find(
 		(member) => member.userId === session?.userId,
 	)?.role;
 

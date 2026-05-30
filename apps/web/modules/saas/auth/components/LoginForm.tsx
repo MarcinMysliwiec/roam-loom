@@ -23,7 +23,6 @@ import {
 	ArrowRightIcon,
 	EyeIcon,
 	EyeOffIcon,
-	KeyIcon,
 	MailboxIcon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -124,22 +123,6 @@ export function LoginForm() {
 					throw error;
 				}
 			}
-		} catch (e) {
-			form.setError("root", {
-				message: getAuthErrorMessage(
-					e && typeof e === "object" && "code" in e
-						? (e.code as string)
-						: undefined,
-				),
-			});
-		}
-	};
-
-	const signInWithPasskey = async () => {
-		try {
-			await authClient.signIn.passkey();
-
-			router.replace(redirectPath);
 		} catch (e) {
 			form.setError("root", {
 				message: getAuthErrorMessage(
@@ -295,21 +278,18 @@ export function LoginForm() {
 						</form>
 					</Form>
 
-					{(config.auth.enablePasskeys ||
-						(config.auth.enableSignup &&
-							config.auth.enableSocialLogin)) && (
-						<>
-							<div className="relative my-6 h-4">
-								<hr className="relative top-2" />
-								<p className="-translate-x-1/2 absolute top-0 left-1/2 mx-auto inline-block h-4 bg-card px-2 text-center font-medium text-foreground/60 text-sm leading-tight">
-									{t("auth.login.continueWith")}
-								</p>
-							</div>
+					{config.auth.enableSignup &&
+						config.auth.enableSocialLogin && (
+							<>
+								<div className="relative my-6 h-4">
+									<hr className="relative top-2" />
+									<p className="-translate-x-1/2 absolute top-0 left-1/2 mx-auto inline-block h-4 bg-card px-2 text-center font-medium text-foreground/60 text-sm leading-tight">
+										{t("auth.login.continueWith")}
+									</p>
+								</div>
 
-							<div className="grid grid-cols-1 items-stretch gap-2 sm:grid-cols-2">
-								{config.auth.enableSignup &&
-									config.auth.enableSocialLogin &&
-									Object.keys(oAuthProviders).map(
+								<div className="grid grid-cols-1 items-stretch gap-2 sm:grid-cols-2">
+									{Object.keys(oAuthProviders).map(
 										(providerId) => (
 											<SocialSigninButton
 												key={providerId}
@@ -319,20 +299,9 @@ export function LoginForm() {
 											/>
 										),
 									)}
-
-								{config.auth.enablePasskeys && (
-									<Button
-										variant="light"
-										className="w-full sm:col-span-2"
-										onClick={() => signInWithPasskey()}
-									>
-										<KeyIcon className="mr-1.5 size-4 text-primary" />
-										{t("auth.login.loginWithPasskey")}
-									</Button>
-								)}
-							</div>
-						</>
-					)}
+								</div>
+							</>
+						)}
 
 					{config.auth.enableSignup && (
 						<div className="mt-6 text-center text-sm">

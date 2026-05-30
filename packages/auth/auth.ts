@@ -13,16 +13,15 @@ import { cancelSubscription } from "@repo/payments";
 import { getBaseUrl } from "@repo/utils";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { createAuthMiddleware } from "better-auth/api";
 import {
 	admin,
-	createAuthMiddleware,
 	magicLink,
 	openAPI,
 	organization,
 	twoFactor,
 	username,
 } from "better-auth/plugins";
-import { passkey } from "better-auth/plugins/passkey";
 import { parse as parseCookies } from "cookie";
 import { updateSeatsInOrganizationSubscription } from "./lib/organization";
 import { invitationOnlyPlugin } from "./plugins/invitation-only";
@@ -132,7 +131,7 @@ export const auth = betterAuth({
 		},
 		changeEmail: {
 			enabled: true,
-			sendChangeEmailVerification: async (
+			sendChangeEmailConfirmation: async (
 				{ user: { email, name }, url },
 				request,
 			) => {
@@ -201,11 +200,10 @@ export const auth = betterAuth({
 	plugins: [
 		username(),
 		admin(),
-		passkey(),
 		magicLink({
 			disableSignUp: true,
-			sendMagicLink: async ({ email, url }, request) => {
-				const locale = getLocaleFromRequest(request);
+			sendMagicLink: async ({ email, url }, ctx) => {
+				const locale = getLocaleFromRequest(ctx?.request);
 				await sendEmail({
 					to: email,
 					templateId: "magicLink",
@@ -258,15 +256,15 @@ export * from "./lib/organization";
 
 export type Session = typeof auth.$Infer.Session;
 
-export type ActiveOrganization = NonNullable<
-	Awaited<ReturnType<typeof auth.api.getFullOrganization>>
->;
+type OrgPluginInfer = ReturnType<typeof organization>["$Infer"];
 
-export type Organization = typeof auth.$Infer.Organization;
+export type ActiveOrganization = NonNullable<OrgPluginInfer["ActiveOrganization"]>;
+
+export type Organization = OrgPluginInfer["Organization"];
 
 export type OrganizationMemberRole =
 	ActiveOrganization["members"][number]["role"];
 
-export type OrganizationInvitationStatus = typeof auth.$Infer.Invitation.status;
+export type OrganizationInvitationStatus = OrgPluginInfer["Invitation"]["status"];
 
 export type OrganizationMetadata = Record<string, unknown> | undefined;

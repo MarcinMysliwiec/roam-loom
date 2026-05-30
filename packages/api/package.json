@@ -10,15 +10,17 @@
 		"@repo/payments": "workspace:*",
 		"@repo/storage": "workspace:*",
 		"@repo/utils": "workspace:*",
-		"@scalar/hono-api-reference": "^0.9.3",
+		"@hono/zod-validator": "^0.4.1",
+		"@scalar/hono-api-reference": "^0.9.48",
 		"@sindresorhus/slugify": "^2.2.1",
-		"hono": "^4.7.11",
+		"hono": "^4.12.23",
 		"hono-openapi": "^0.4.8",
-		"nanoid": "^5.1.5",
+		"nanoid": "^5.1.11",
 		"openai": "^5.1.1",
 		"openapi-merge": "^1.3.3",
 		"use-intl": "^4.1.0",
-		"zod": "^3.25.55"
+		"zod": "^3.25.55",
+		"zod-openapi": "^4.0.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
