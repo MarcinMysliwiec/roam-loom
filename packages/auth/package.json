@@ -9,7 +9,7 @@
 		"@repo/utils": "workspace:*",
 		"better-auth": "1.6.12",
 		"cookie": "^1.1.1",
-		"next": "15.3.3"
+		"next": "16.2.6"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.16",
