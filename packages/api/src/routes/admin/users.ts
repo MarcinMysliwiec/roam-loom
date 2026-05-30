@@ -1,7 +1,7 @@
 import { countAllUsers, getUsers } from "@repo/database";
 import { Hono } from "hono";
-import { describeRoute } from "hono-openapi";
-import { validator } from "hono-openapi/zod";
+
+import { describeRoute, validator } from "hono-openapi";
 import { z } from "zod";
 import { adminMiddleware } from "../../middleware/admin";
 

@@ -2,8 +2,8 @@ import { config } from "@repo/config";
 import { logger } from "@repo/logs";
 import { sendEmail } from "@repo/mail";
 import { Hono } from "hono";
-import { describeRoute } from "hono-openapi";
-import { resolver, validator } from "hono-openapi/zod";
+
+import { describeRoute, resolver, validator } from "hono-openapi";
 import { z } from "zod";
 import { localeMiddleware } from "../../middleware/locale";
 import { contactFormSchema } from "./types";

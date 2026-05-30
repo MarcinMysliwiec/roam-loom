@@ -3,7 +3,7 @@ import { config } from "@repo/config";
 import { getBaseUrl } from "@repo/utils";
 import { Scalar } from "@scalar/hono-api-reference";
 import { Hono } from "hono";
-import { openAPISpecs } from "hono-openapi";
+import { openAPIRouteHandler } from "hono-openapi";
 import {} from "openapi-merge";
 import {} from "openapi-merge";
 import { mergeOpenApiSchemas } from "./lib/openapi-schema";
@@ -39,7 +39,7 @@ const appRouter = app
 
 app.get(
 	"/app-openapi",
-	openAPISpecs(app, {
+	openAPIRouteHandler(app, {
 		documentation: {
 			info: {
 				title: `${config.appName} API`,

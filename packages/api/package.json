@@ -10,6 +10,7 @@
 		"@repo/payments": "workspace:*",
 		"@repo/storage": "workspace:*",
 		"@repo/utils": "workspace:*",
+		"@hono/standard-validator": "^0.2.0",
 		"@hono/zod-validator": "^0.8.0",
 		"@scalar/hono-api-reference": "^0.10.19",
 		"@sindresorhus/slugify": "^3.0.0",

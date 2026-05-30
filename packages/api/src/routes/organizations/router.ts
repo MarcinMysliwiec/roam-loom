@@ -1,8 +1,8 @@
 import { getOrganizationBySlug } from "@repo/database";
 import slugify from "@sindresorhus/slugify";
 import { Hono } from "hono";
-import { describeRoute } from "hono-openapi";
-import { validator } from "hono-openapi/zod";
+
+import { describeRoute, validator } from "hono-openapi";
 import { nanoid } from "nanoid";
 import { z } from "zod";
 
