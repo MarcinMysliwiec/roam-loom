@@ -4,6 +4,7 @@ import { DropdownMenuSub } from "@radix-ui/react-dropdown-menu";
 import { authClient } from "@repo/auth/client";
 import { config } from "@repo/config";
 import { useSession } from "@saas/auth/hooks/use-session";
+import { useActiveOrganization } from "@saas/organizations/hooks/use-active-organization";
 import { UserAvatar } from "@shared/components/UserAvatar";
 import { clearCache } from "@shared/lib/cache";
 import {
@@ -29,6 +30,7 @@ import {
 	SettingsIcon,
 	SunIcon,
 } from "lucide-react";
+import { getAccountSettingsPath } from "@saas/shared/lib/links";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -37,6 +39,7 @@ import { useState } from "react";
 export function UserMenu({ showUserName }: { showUserName?: boolean }) {
 	const t = useTranslations();
 	const { user } = useSession();
+	const { activeOrganization } = useActiveOrganization();
 	const { setTheme: setCurrentTheme, theme: currentTheme } = useTheme();
 	const [theme, setTheme] = useState<string>(currentTheme ?? "system");
 
@@ -146,7 +149,7 @@ export function UserMenu({ showUserName }: { showUserName?: boolean }) {
 				<DropdownMenuSeparator />
 
 				<DropdownMenuItem asChild>
-					<Link href="/app/settings/general">
+					<Link href={getAccountSettingsPath(activeOrganization?.slug)}>
 						<SettingsIcon className="mr-2 size-4" />
 						{t("app.userMenu.accountSettings")}
 					</Link>
