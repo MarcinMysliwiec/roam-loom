@@ -46,7 +46,7 @@ type Property = {
 	_count: { bookings: number; reviews: number };
 };
 
-export function PropertyList() {
+export function PropertyList({ canManage = false }: { canManage?: boolean }) {
 	const t = useTranslations();
 	const { confirm } = useConfirmationAlert();
 	const queryClient = useQueryClient();
@@ -167,13 +167,15 @@ export function PropertyList() {
 										{t("admin.properties.edit")}
 									</Link>
 								</DropdownMenuItem>
-								<DropdownMenuItem
-									onClick={() => handleDelete(row.original.id)}
-									className="text-destructive focus:text-destructive"
-								>
-									<TrashIcon className="mr-2 size-4" />
-									{t("admin.properties.delete")}
-								</DropdownMenuItem>
+								{canManage && (
+									<DropdownMenuItem
+										onClick={() => handleDelete(row.original.id)}
+										className="text-destructive focus:text-destructive"
+									>
+										<TrashIcon className="mr-2 size-4" />
+										{t("admin.properties.delete")}
+									</DropdownMenuItem>
+								)}
 							</DropdownMenuContent>
 						</DropdownMenu>
 					</div>
@@ -202,12 +204,14 @@ export function PropertyList() {
 				<h2 className="font-semibold text-2xl">
 					{t("admin.properties.title")}
 				</h2>
-				<Button asChild>
-					<Link href={getAdminPath("/properties/new")}>
-						<PlusIcon className="mr-1.5 size-4" />
-						{t("admin.properties.create")}
-					</Link>
-				</Button>
+				{canManage && (
+					<Button asChild>
+						<Link href={getAdminPath("/properties/new")}>
+							<PlusIcon className="mr-1.5 size-4" />
+							{t("admin.properties.create")}
+						</Link>
+					</Button>
+				)}
 			</div>
 
 			<Input

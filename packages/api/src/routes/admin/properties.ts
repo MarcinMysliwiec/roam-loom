@@ -68,6 +68,14 @@ export const propertiesRouter = new Hono()
 			tags: ["Administration"],
 		}),
 		async (c) => {
+			const user = c.get("user");
+			const orgMemberRole = c.get("orgMemberRole");
+			if (
+				user.role !== "admin" &&
+				!["owner", "admin"].includes(orgMemberRole ?? "")
+			) {
+				return c.json({ error: "Forbidden" }, 403);
+			}
 			const data = c.req.valid("json");
 			const property = await createProperty(data);
 			return c.json(property, 201);
@@ -94,6 +102,15 @@ export const propertiesRouter = new Hono()
 		},
 	)
 	.delete("/:id", async (c) => {
+		const user = c.get("user");
+		const orgMemberRole = c.get("orgMemberRole");
+		if (
+			user.role !== "admin" &&
+			!["owner", "admin"].includes(orgMemberRole ?? "")
+		) {
+			return c.json({ error: "Forbidden" }, 403);
+		}
+
 		const id = c.req.param("id");
 
 		const existing = await getPropertyById(id);

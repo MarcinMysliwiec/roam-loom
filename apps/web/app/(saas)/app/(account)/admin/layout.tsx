@@ -1,4 +1,5 @@
 import { config } from "@repo/config";
+import { getOrganizationMembership } from "@repo/database";
 import { getSession } from "@saas/auth/lib/server";
 import { SettingsMenu } from "@saas/settings/components/SettingsMenu";
 import { PageHeader } from "@saas/shared/components/PageHeader";
@@ -23,8 +24,27 @@ export default async function AdminLayout({ children }: PropsWithChildren) {
 		return redirect("/auth/login");
 	}
 
-	if (session.user?.role !== "admin") {
-		redirect("/app");
+	const isGlobalAdmin = session.user?.role === "admin";
+
+	if (!isGlobalAdmin) {
+		const activeOrganizationId = (
+			session.session as typeof session.session & {
+				activeOrganizationId?: string;
+			}
+		).activeOrganizationId;
+
+		if (!activeOrganizationId) {
+			redirect("/app");
+		}
+
+		const membership = await getOrganizationMembership(
+			activeOrganizationId,
+			session.user.id,
+		);
+
+		if (!membership) {
+			redirect("/app");
+		}
 	}
 
 	return (
