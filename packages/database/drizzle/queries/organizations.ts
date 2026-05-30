@@ -1,5 +1,5 @@
 import { and, eq } from "drizzle-orm";
-import type { z } from "zod";
+import type { z } from "zod/v4";
 import { db } from "../client";
 import { member, organization } from "../schema/postgres";
 import type { OrganizationUpdateSchema } from "../zod";

@@ -1,13 +1,9 @@
-import { defineCollection, defineConfig } from "@content-collections/core";
+import { defineCollection, defineConfig, type AnyCollection } from "@content-collections/core";
 import { compileMDX } from "@content-collections/mdx";
-import {
-	createDocSchema,
-	createMetaSchema,
-	transformMDX,
-} from "@fumadocs/content-collections/configuration";
+import { transformMDX } from "@fumadocs/content-collections/configuration";
 import rehypeShiki from "@shikijs/rehype";
 import { remarkImage } from "fumadocs-core/mdx-plugins";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { config } from "../../config";
 
 function sanitizePath(path: string) {
@@ -85,7 +81,13 @@ const docs = defineCollection({
 	name: "docs",
 	directory: "content/docs",
 	include: "**/*.mdx",
-	schema: z.object(createDocSchema(z)),
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional(),
+		icon: z.string().optional(),
+		full: z.boolean().optional(),
+		_openapi: z.record(z.string(), z.unknown()).optional(),
+	}),
 	transform: async (document, context) =>
 		transformMDX(document, context, {
 			remarkPlugins: [
@@ -104,9 +106,18 @@ const docsMeta = defineCollection({
 	directory: "content/docs",
 	include: "**/meta.json",
 	parser: "json",
-	schema: z.object(createMetaSchema(z)),
+	schema: z.object({
+		title: z.string().optional(),
+		description: z.string().optional(),
+		pages: z.array(z.string()).optional(),
+		icon: z.string().optional(),
+		root: z.boolean().optional(),
+		defaultOpen: z.boolean().optional(),
+	}),
 });
 
 export default defineConfig({
-	collections: [posts, legalPages, docs, docsMeta],
+	// docs cast needed: transformMDX returns structuredData with `heading: string|undefined`,
+	// which fails @content-collections/core's Serializable check at type-level (undefined not in Literal)
+	collections: [posts, legalPages, docs as unknown as AnyCollection, docsMeta],
 });

@@ -9,10 +9,10 @@ import { CheckCircleIcon, KeyIcon } from "lucide-react";
 
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
+import * as z from "zod/v4";
 
 const formSchema = z.object({
-	email: z.string().email(),
+	email: z.email(),
 });
 type FormValues = z.infer<typeof formSchema>;
 

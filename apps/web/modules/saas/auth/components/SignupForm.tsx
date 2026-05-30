@@ -5,7 +5,6 @@ import { authClient } from "@repo/auth/client";
 import { config } from "@repo/config";
 import { useAuthErrorMessages } from "@saas/auth/hooks/errors-messages";
 import { OrganizationInvitationAlert } from "@saas/organizations/components/OrganizationInvitationAlert";
-import { useFormErrors } from "@shared/hooks/form-errors";
 import { Alert, AlertDescription, AlertTitle } from "@ui/components/alert";
 import { Button } from "@ui/components/button";
 import {
@@ -31,7 +30,7 @@ import { useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { withQuery } from "ufo";
-import { z } from "zod";
+import { z } from "zod/v4";
 import {
 	type OAuthProvider,
 	oAuthProviders,
@@ -39,7 +38,7 @@ import {
 import { SocialSigninButton } from "./SocialSigninButton";
 
 const formSchema = z.object({
-	email: z.string().email(),
+	email: z.email(),
 	password: z.string().min(1),
 	name: z.string().min(1),
 });
@@ -49,7 +48,6 @@ type FormValues = z.infer<typeof formSchema>;
 export function SignupForm({ prefillEmail }: { prefillEmail?: string }) {
 	const t = useTranslations();
 	const router = useRouter();
-	const { zodErrorMap } = useFormErrors();
 	const { getAuthErrorMessage } = useAuthErrorMessages();
 	const searchParams = useSearchParams();
 
@@ -59,9 +57,7 @@ export function SignupForm({ prefillEmail }: { prefillEmail?: string }) {
 	const redirectTo = searchParams.get("redirectTo");
 
 	const form = useForm<FormValues>({
-		resolver: zodResolver(formSchema, {
-			errorMap: zodErrorMap,
-		}),
+		resolver: zodResolver(formSchema),
 		values: {
 			name: "",
 			email: prefillEmail ?? email ?? "",
