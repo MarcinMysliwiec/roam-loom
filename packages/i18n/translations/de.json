@@ -1,8 +1,77 @@
 {
 	"admin": {
 		"menu": {
+			"dashboard": "Dashboard",
+			"bookings": "Buchungen",
+			"properties": "Objekte",
 			"organizations": "Organisationen",
 			"users": "Benutzer"
+		},
+		"dashboard": {
+			"title": "Dashboard",
+			"totalBookings": "Buchungen gesamt",
+			"pendingBookings": "Ausstehend",
+			"totalProperties": "Objekte"
+		},
+		"bookings": {
+			"title": "Buchungen verwalten",
+			"search": "Nach Objekt suchen...",
+			"loading": "Buchungen werden geladen...",
+			"status": {
+				"PENDING": "Ausstehend",
+				"CONFIRMED": "Bestätigt",
+				"CANCELLED": "Storniert"
+			},
+			"confirm": "Bestätigen",
+			"cancel": "Buchung stornieren",
+			"confirmBooking": {
+				"title": "Buchung bestätigen",
+				"message": "Möchtest du diese Buchung wirklich bestätigen?",
+				"confirm": "Bestätigen"
+			},
+			"cancelBooking": {
+				"title": "Buchung stornieren",
+				"message": "Möchtest du diese Buchung wirklich stornieren?",
+				"confirm": "Buchung stornieren"
+			},
+			"updateStatus": {
+				"confirmed": "Buchung bestätigt.",
+				"cancelled": "Buchung storniert.",
+				"error": "Buchungsstatus konnte nicht aktualisiert werden."
+			}
+		},
+		"properties": {
+			"title": "Objekte verwalten",
+			"search": "Objekt suchen...",
+			"loading": "Objekte werden geladen...",
+			"create": "Objekt hinzufügen",
+			"edit": "Bearbeiten",
+			"delete": "Löschen",
+			"confirmDelete": {
+				"title": "Objekt löschen",
+				"message": "Möchtest du dieses Objekt wirklich löschen? Alle zugehörigen Buchungen werden ebenfalls entfernt.",
+				"confirm": "Löschen"
+			},
+			"deleteProperty": {
+				"deleting": "Objekt wird gelöscht...",
+				"deleted": "Objekt wurde gelöscht.",
+				"notDeleted": "Objekt konnte nicht gelöscht werden. Bitte versuche es erneut."
+			},
+			"backToList": "Zurück zu Objekten",
+			"form": {
+				"createTitle": "Objekt hinzufügen",
+				"updateTitle": "Objekt bearbeiten",
+				"name": "Name",
+				"description": "Beschreibung",
+				"address": "Adresse",
+				"basePrice": "Grundpreis pro Nacht ($)",
+				"organization": "Organisation",
+				"save": "Objekt speichern",
+				"notifications": {
+					"success": "Objekt wurde gespeichert.",
+					"error": "Objekt konnte nicht gespeichert werden. Bitte versuche es erneut."
+				}
+			}
 		},
 		"organizations": {
 			"backToList": "Zurück zu Organisationen",

@@ -1,8 +1,77 @@
 {
 	"admin": {
 		"menu": {
+			"dashboard": "Dashboard",
+			"bookings": "Bookings",
+			"properties": "Properties",
 			"organizations": "Organizations",
 			"users": "Users"
+		},
+		"dashboard": {
+			"title": "Dashboard",
+			"totalBookings": "Total Bookings",
+			"pendingBookings": "Pending",
+			"totalProperties": "Properties"
+		},
+		"bookings": {
+			"title": "Manage bookings",
+			"search": "Search by property...",
+			"loading": "Loading bookings...",
+			"status": {
+				"PENDING": "Pending",
+				"CONFIRMED": "Confirmed",
+				"CANCELLED": "Cancelled"
+			},
+			"confirm": "Confirm",
+			"cancel": "Cancel booking",
+			"confirmBooking": {
+				"title": "Confirm booking",
+				"message": "Are you sure you want to confirm this booking?",
+				"confirm": "Confirm"
+			},
+			"cancelBooking": {
+				"title": "Cancel booking",
+				"message": "Are you sure you want to cancel this booking?",
+				"confirm": "Cancel booking"
+			},
+			"updateStatus": {
+				"confirmed": "Booking confirmed.",
+				"cancelled": "Booking cancelled.",
+				"error": "Could not update booking status."
+			}
+		},
+		"properties": {
+			"title": "Manage properties",
+			"search": "Search for a property...",
+			"loading": "Loading properties...",
+			"create": "Add property",
+			"edit": "Edit",
+			"delete": "Delete",
+			"confirmDelete": {
+				"title": "Delete property",
+				"message": "Are you sure you want to delete this property? All associated bookings will also be removed.",
+				"confirm": "Delete"
+			},
+			"deleteProperty": {
+				"deleting": "Deleting property...",
+				"deleted": "Property has been deleted.",
+				"notDeleted": "Could not delete property. Please try again."
+			},
+			"backToList": "Back to properties",
+			"form": {
+				"createTitle": "Add a property",
+				"updateTitle": "Edit property",
+				"name": "Name",
+				"description": "Description",
+				"address": "Address",
+				"basePrice": "Base price per night ($)",
+				"organization": "Organization",
+				"save": "Save property",
+				"notifications": {
+					"success": "Property has been saved.",
+					"error": "Could not save the property. Please try again."
+				}
+			}
 		},
 		"organizations": {
 			"backToList": "Back to organizations",
