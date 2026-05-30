@@ -14,18 +14,18 @@
 	},
 	"packageManager": "pnpm@9.3.0",
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
+		"@biomejs/biome": "2.4.16",
 		"@repo/tsconfig": "workspace:*",
-		"@types/node": "^22.19.19",
-		"dotenv-cli": "^8.0.0",
+		"@types/node": "^25.9.1",
+		"dotenv-cli": "^11.0.0",
 		"turbo": "^2.9.16",
-		"typescript": "5.8.3"
+		"typescript": "6.0.3"
 	},
 	"pnpm": {
 		"overrides": {
 			"@types/react": "19.2.15",
 			"@types/react-dom": "19.2.3",
-			"typescript": "5.8.3",
+			"typescript": "6.0.3",
 			"kysely": "0.28.2"
 		}
 	}
