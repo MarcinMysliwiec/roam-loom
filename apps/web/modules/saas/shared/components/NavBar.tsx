@@ -6,12 +6,14 @@ import { UserMenu } from "@saas/shared/components/UserMenu";
 import { Logo } from "@shared/components/Logo";
 import { cn } from "@ui/lib";
 import {
-	BotMessageSquareIcon,
+	BuildingIcon,
+	CalendarIcon,
 	ChevronRightIcon,
-	HomeIcon,
+	LayoutDashboardIcon,
 	SettingsIcon,
 	UserCog2Icon,
 	UserCogIcon,
+	UsersIcon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -33,18 +35,28 @@ export function NavBar() {
 
 	const menuItems = [
 		{
-			label: t("app.menu.start"),
+			label: t("app.menu.dashboard"),
 			href: basePath,
-			icon: HomeIcon,
+			icon: LayoutDashboardIcon,
 			isActive: pathname === basePath,
 		},
 		{
-			label: t("app.menu.aiChatbot"),
-			href: activeOrganization
-				? `/app/${activeOrganization.slug}/chatbot`
-				: "/app/chatbot",
-			icon: BotMessageSquareIcon,
-			isActive: pathname.includes("/chatbot"),
+			label: t("app.menu.properties"),
+			href: `${basePath}/properties`,
+			icon: BuildingIcon,
+			isActive: pathname.startsWith(`${basePath}/properties`),
+		},
+		{
+			label: t("app.menu.bookings"),
+			href: `${basePath}/bookings`,
+			icon: CalendarIcon,
+			isActive: pathname.startsWith(`${basePath}/bookings`),
+		},
+		{
+			label: t("app.menu.customers"),
+			href: `${basePath}/customers`,
+			icon: UsersIcon,
+			isActive: pathname.startsWith(`${basePath}/customers`),
 		},
 		...(activeOrganization
 			? [

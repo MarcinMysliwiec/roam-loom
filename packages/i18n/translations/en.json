@@ -74,7 +74,11 @@
 			"accountSettings": "Account settings",
 			"admin": "Admin",
 			"aiChatbot": "AI Chatbot",
+			"bookings": "Bookings",
+			"customers": "Customers",
+			"dashboard": "Dashboard",
 			"organizationSettings": "Organization settings",
+			"properties": "Properties",
 			"start": "Start"
 		},
 		"userMenu": {
