@@ -1,0 +1,53 @@
+services:
+    # ----------------------------------------
+    # 1. PostgreSQL Database
+    # ----------------------------------------
+    postgres:
+        image: postgres:16-alpine
+        container_name: roam_loom_postgres
+        restart: unless-stopped
+        ports:
+            - "5433:5432"
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: roam_loom_dev
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U root -d roam_loom_dev"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+
+    # ----------------------------------------
+    # 2. Local Email Catcher (Mailpit)
+    # ----------------------------------------
+    mail:
+        image: axllent/mailpit
+        container_name: roam_loom_mail
+        restart: unless-stopped
+        ports:
+            - "1025:1025" # SMTP port
+            - "8025:8025" # Web UI port
+
+    # ----------------------------------------
+    # 3. Local S3 Storage (MinIO)
+    # ----------------------------------------
+    storage:
+        image: minio/minio
+        container_name: roam_loom_storage
+        restart: unless-stopped
+        ports:
+            - "9000:9000" # API port
+            - "9001:9001" # Web UI console port
+        environment:
+            MINIO_ROOT_USER: local-minio-admin
+            MINIO_ROOT_PASSWORD: local-minio-password
+        command: server /data --console-address ":9001"
+        volumes:
+            - minio_data:/data
+
+volumes:
+    postgres_data:
+    minio_data:
