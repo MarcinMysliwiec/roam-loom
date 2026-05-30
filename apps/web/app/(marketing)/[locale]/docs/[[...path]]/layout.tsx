@@ -16,7 +16,7 @@ export default async function DocumentationLayout({
 		<div className="pt-[4.5rem]">
 			<DocsLayout
 				tree={docsSource.pageTree[locale]}
-				disableThemeSwitch
+				themeSwitch={{ enabled: false }}
 				i18n
 				nav={{
 					title: <strong>{t("documentation.title")}</strong>,
