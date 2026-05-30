@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import type { z } from "zod";
+import type { z } from "zod/v4";
 import { db } from "../client";
 import { purchase } from "../schema/postgres";
 import type { PurchaseInsertSchema, PurchaseUpdateSchema } from "../zod";

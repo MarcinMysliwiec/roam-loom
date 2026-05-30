@@ -10,7 +10,7 @@ export const invitationOnlyPlugin = () =>
 			before: [
 				{
 					matcher: (context) =>
-						context.path.startsWith("/sign-up/email"),
+						context.path?.startsWith("/sign-up/email") ?? false,
 					handler: createAuthMiddleware(async (ctx) => {
 						if (config.auth.enableSignup) {
 							return;

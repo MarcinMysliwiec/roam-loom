@@ -6,8 +6,6 @@
 	"main": "theme.css",
 	"name": "@repo/tailwind-config",
 	"private": true,
-	"scripts": {
-		"type-check": "tsc --noEmit"
-	},
+	"scripts": {},
 	"version": "0.0.0"
 }
