@@ -1,5 +1,6 @@
 {
 	"dependencies": {
+		"@ai-sdk/react": "^1.2.12",
 		"@aws-sdk/client-s3": "3.1057.0",
 		"@fumadocs/content-collections": "^1.2.9",
 		"@hookform/resolvers": "^5.4.0",

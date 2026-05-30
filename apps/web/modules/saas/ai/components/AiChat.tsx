@@ -11,7 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@ui/components/button";
 import { Textarea } from "@ui/components/textarea";
 import { cn } from "@ui/lib";
-import { type Message, useChat } from "ai/react";
+import { type Message, useChat } from "@ai-sdk/react";
 import { EllipsisIcon, PlusIcon, SendIcon } from "lucide-react";
 import { useFormatter } from "next-intl";
 import { useQueryState } from "nuqs";
@@ -30,7 +30,7 @@ export function AiChat({ organizationId }: { organizationId?: string }) {
 		input,
 		handleInputChange,
 		handleSubmit,
-		isLoading,
+		status,
 		setMessages,
 	} = useChat({
 		api: `/api/ai/chats/${chatId}/messages`,
@@ -72,9 +72,15 @@ export function AiChat({ organizationId }: { organizationId?: string }) {
 	const hasChat =
 		chatsStatus === "success" && !!chats?.length && !!currentChat?.id;
 
+	type AiChatItem = {
+		id: string;
+		createdAt: Date | string;
+		title?: string | null;
+		messages?: { content: string }[] | null;
+	};
 	const sortedChats = useMemo(() => {
 		return (
-			chats?.sort(
+			(chats as AiChatItem[] | undefined)?.slice().sort(
 				(a, b) =>
 					new Date(b.createdAt).getTime() -
 					new Date(a.createdAt).getTime(),
@@ -156,7 +162,7 @@ export function AiChat({ organizationId }: { organizationId?: string }) {
 						</div>
 					))}
 
-					{isLoading && (
+					{(status === "submitted" || status === "streaming") && (
 						<div className="flex justify-start">
 							<div className="flex max-w-2xl items-center gap-2 rounded-lg bg-secondary/10 px-4 py-2 text-foreground">
 								<EllipsisIcon className="size-6 animate-pulse" />

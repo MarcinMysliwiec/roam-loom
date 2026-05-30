@@ -32,7 +32,7 @@ import { useEffect, useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { withQuery } from "ufo";
-import { z } from "zod";
+import { z } from "zod/v4";
 import {
 	type OAuthProvider,
 	oAuthProviders,
@@ -44,11 +44,11 @@ import { SocialSigninButton } from "./SocialSigninButton";
 const formSchema = z.union([
 	z.object({
 		mode: z.literal("magic-link"),
-		email: z.string().email(),
+		email: z.email(),
 	}),
 	z.object({
 		mode: z.literal("password"),
-		email: z.string().email(),
+		email: z.email(),
 		password: z.string().min(1),
 	}),
 ]);
