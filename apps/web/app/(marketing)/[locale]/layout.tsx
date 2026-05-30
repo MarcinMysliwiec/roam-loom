@@ -3,7 +3,7 @@ import { NavBar } from "@marketing/shared/components/NavBar";
 import { config } from "@repo/config";
 import { SessionProvider } from "@saas/auth/components/SessionProvider";
 import { Document } from "@shared/components/Document";
-import { RootProvider as FumadocsRootProvider } from "fumadocs-ui/provider";
+import { RootProvider as FumadocsRootProvider } from "fumadocs-ui/provider/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
