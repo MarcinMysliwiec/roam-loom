@@ -1,7 +1,7 @@
 {
 	"dependencies": {
 		"@lemonsqueezy/lemonsqueezy.js": "^4.0.0",
-		"@polar-sh/sdk": "^0.47.1",
+		"@polar-sh/sdk": "^0.48.0",
 		"@repo/config": "workspace:*",
 		"@repo/database": "workspace:*",
 		"@repo/logs": "workspace:*",
